@@ -63,19 +63,27 @@ class DumpServerCommand extends Command
         });
     }
 
-    public function configure()
+    /**
+     * @return void
+     */
+    public function configure(): void
     {
         parent::configure();
 
         $this->setDescription('Start the dump server to collect dump information.');
     }
 
+    /**
+     * @return DumpServer
+     */
     protected function getServer(): DumpServer
     {
-        /** @var Container $container */
+        /**
+         * @var Container $container
+         */
         $container = ApplicationContext::getContainer();
         $config = $container->get(ConfigInterface::class);
 
-        return new DumpServer($config->get('dump-server.host', 'tcp://127.0.0.1:9912'));
+        return new DumpServer($config->get('dump-server.host'));
     }
 }
